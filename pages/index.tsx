@@ -54,8 +54,8 @@ export default function Home() {
     setSelectedPlace(newDestination)
     fetchRoute({
       destination: {
-        lat: newDestination?.location?.lat,
-        lon: newDestination?.location?.lon,
+        lat: newDestination.location?.lat,
+        lon: newDestination.location?.lon,
       },
     })
   }
@@ -74,7 +74,7 @@ export default function Home() {
         <button onClick={pickNewDestination} className={css.button}>
           Pick new destination
         </button>
-        <DynamicMap polylines={polylines} marker={selectedPlace}/>
+        <DynamicMap polylines={polylines} destination={selectedPlace}/>
       </main>
     </>
   )

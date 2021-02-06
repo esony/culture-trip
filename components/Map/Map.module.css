@@ -2,3 +2,20 @@
   height: 100vh;
   width: 100vw;
 }
+
+.popup > * {
+  border-radius: 10px;
+}
+
+.popup > * > * {
+  margin: -1px;
+}
+.thumbnail {
+  max-width: 100%;
+  border-radius: 10px 10px 0 0;
+}
+
+.description {
+  padding: 15px;
+  padding-bottom: 45px;
+}

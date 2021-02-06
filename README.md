@@ -4,10 +4,11 @@
 
 This is a demo project that utilizes data from [HSL](https://www.hsl.fi/en/hsl/open-data) as well as [MyHelsinki Open API](http://open-api.myhelsinki.fi/doc#/).
 
-### Technologies
+### Technologies and libraries
 
 - [Next.js](https://nextjs.org/)
 - [Typescript](https://www.typescriptlang.org/)
+- [Leaflet](https://leafletjs.com/)
 - [Docker](https://www.docker.com/)
 
 ### Google Cloud services

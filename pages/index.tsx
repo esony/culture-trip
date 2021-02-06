@@ -29,6 +29,7 @@ const ITINERARIES = gql`
 
 export default function Home() {
   const [places, setPlaces] = useState([])
+  const [selectedPlace, setSelectedPlace] = useState()
 
   useEffect(() => {
     const fetchPlaces = async () => {
@@ -50,6 +51,7 @@ export default function Home() {
     const randomIndex = Math.floor(Math.random() * max)
     const newDestination = places[randomIndex]
 
+    setSelectedPlace(newDestination)
     fetchRoute({
       destination: {
         lat: newDestination?.location?.lat,
@@ -72,7 +74,7 @@ export default function Home() {
         <button onClick={pickNewDestination} className={css.button}>
           Pick new destination
         </button>
-        <DynamicMap polylines={polylines} />
+        <DynamicMap polylines={polylines} marker={selectedPlace}/>
       </main>
     </>
   )

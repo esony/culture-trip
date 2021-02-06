@@ -1,7 +1,8 @@
 steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'eu.gcr.io/culture-trip-304009/culture-trip:latest', '.']
+    args:
+      ['build', '-t', 'eu.gcr.io/culture-trip-304009/culture-trip:latest', '.']
   # Push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'eu.gcr.io/culture-trip-304009/culture-trip:latest']

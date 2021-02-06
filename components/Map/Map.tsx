@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
+import css from './Map.module.css'
 
 const Map = () => {
   L.Icon.Default.imagePath = '/'
@@ -10,7 +11,7 @@ const Map = () => {
       center={[60.192059, 24.945831]}
       zoom={13}
       scrollWheelZoom={true}
-      style={{ height: '100vh', width: '100vw' }}
+      className={css.mapContainer}
     >
       <TileLayer
         id="hsl-map"

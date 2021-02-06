@@ -1,0 +1,24 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'eu.gcr.io/culture-trip-304009/culture-trip:latest', '.']
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'eu.gcr.io/culture-trip-304009/culture-trip:latest']
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run',
+        'deploy',
+        'culture-trip',
+        '--image',
+        'eu.gcr.io/culture-trip-304009/culture-trip:latest',
+        '--region',
+        'europe-north1',
+        '--platform',
+        'managed',
+      ]
+images:
+  - eu.gcr.io/culture-trip-304009/culture-trip:latest

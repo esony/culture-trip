@@ -3,13 +3,14 @@ import polylineUtil from '@mapbox/polyline'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import css from './Map.module.css'
+import Location from '../../types/Location'
 
 type Props = {
   polylines: string[]
-  marker: any
+  destination?: Location
 }
 
-const Map = ({ polylines, marker }: Props) => {
+const Map = ({ polylines, destination }: Props) => {
   L.Icon.Default.imagePath = '/'
 
   return (
@@ -24,11 +25,21 @@ const Map = ({ polylines, marker }: Props) => {
         attribution='Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
         url="https://cdn.digitransit.fi/map/v1/{id}/{z}/{x}/{y}.png"
       />
-      {marker && (
-        <Marker position={[marker.location.lat, marker.location.lon]}>
-          <Popup>
-            <h2>A place of interest</h2>
-            <br /> There must be something here!
+      {destination && (
+        <Marker
+          position={[destination.location.lat, destination.location.lon]}
+          title={destination.name.en}
+          alt={destination.name.en}
+        >
+          <Popup className={css.popup}>
+            <img
+              src={destination.description.images[0]?.url}
+              className={css.thumbnail}
+            />
+            <div className={css.description}>
+              <h2>{destination.name.en}</h2>
+              {destination.description.body}
+            </div>
           </Popup>
         </Marker>
       )}

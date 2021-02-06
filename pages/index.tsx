@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import { useState, useEffect } from 'react'
 import { useQuery, gql } from '@apollo/client'
 import css from './index.module.css'
+import Location from '../types/Location'
 
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false,
@@ -28,8 +29,8 @@ const ITINERARIES = gql`
 `
 
 export default function Home() {
-  const [places, setPlaces] = useState([])
-  const [selectedPlace, setSelectedPlace] = useState()
+  const [places, setPlaces] = useState<Array<Location>>([])
+  const [selectedPlace, setSelectedPlace] = useState<Location>()
 
   useEffect(() => {
     const fetchPlaces = async () => {
@@ -54,8 +55,8 @@ export default function Home() {
     setSelectedPlace(newDestination)
     fetchRoute({
       destination: {
-        lat: newDestination?.location?.lat,
-        lon: newDestination?.location?.lon,
+        lat: newDestination.location.lat,
+        lon: newDestination.location.lon,
       },
     })
   }
@@ -74,7 +75,7 @@ export default function Home() {
         <button onClick={pickNewDestination} className={css.button}>
           Pick new destination
         </button>
-        <DynamicMap polylines={polylines} marker={selectedPlace}/>
+        <DynamicMap polylines={polylines} destination={selectedPlace} />
       </main>
     </>
   )

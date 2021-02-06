@@ -4,13 +4,14 @@ import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import css from './Map.module.css'
 import Location from '../../types/Location'
+import { getColor } from '../../utils/utils'
 
 type Props = {
-  polylines: string[]
+  route: any[]
   destination?: Location
 }
 
-const Map = ({ polylines, destination }: Props) => {
+const Map = ({ route, destination }: Props) => {
   L.Icon.Default.imagePath = '/'
 
   const today = new Date().getDay()
@@ -49,9 +50,18 @@ const Map = ({ polylines, destination }: Props) => {
           </Popup>
         </Marker>
       )}
-      {polylines.map((x: any, i: number) => (
-        <Polyline key={i} positions={polylineUtil.decode(x)}></Polyline>
-      ))}
+      {route &&
+        route.map((leg: any, i: number) => {
+          const color = getColor(leg.mode)
+
+          return (
+            <Polyline
+              key={i}
+              positions={polylineUtil.decode(leg.legGeometry.points)}
+              color={color}
+            ></Polyline>
+          )
+        })}
     </MapContainer>
   )
 }

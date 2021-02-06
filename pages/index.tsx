@@ -18,6 +18,22 @@ const ITINERARIES = gql`
     ) {
       itineraries {
         legs {
+          startTime
+          endTime
+          mode
+          from {
+            name
+          }
+          to {
+            name
+          }
+          route {
+            shortName
+          }
+          duration
+          realTime
+          distance
+          transitLeg
           legGeometry {
             length
             points
@@ -51,7 +67,7 @@ export default function Home() {
     if (places.length === 0) {
       return
     }
-    
+
     const max = places.length - 1 || 0
     const randomIndex = Math.floor(Math.random() * max)
     const newDestination = places[randomIndex]
@@ -65,9 +81,6 @@ export default function Home() {
     })
   }
 
-  const polylines: Array<string> =
-    data?.plan.itineraries[0]?.legs.map((x: any) => x.legGeometry.points) || []
-
   return (
     <>
       <Head>
@@ -79,7 +92,7 @@ export default function Home() {
         <button onClick={pickNewDestination} className={css.button}>
           Pick new destination
         </button>
-        <DynamicMap polylines={polylines} destination={selectedPlace} />
+        <DynamicMap route={data?.plan.itineraries[0].legs} destination={selectedPlace} />
       </main>
     </>
   )

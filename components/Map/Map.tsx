@@ -13,6 +13,8 @@ type Props = {
 const Map = ({ polylines, destination }: Props) => {
   L.Icon.Default.imagePath = '/'
 
+  const today = new Date().getDay()
+
   return (
     <MapContainer
       center={[60.16699, 24.93988]}
@@ -39,6 +41,10 @@ const Map = ({ polylines, destination }: Props) => {
             <div className={css.description}>
               <h2>{destination.name.en}</h2>
               {destination.description.body}
+              <div className={css.openingHours}>
+                Open today: {destination.opening_hours.hours[today].opens} -{' '}
+                {destination.opening_hours.hours[today].closes}
+              </div>
             </div>
           </Popup>
         </Marker>

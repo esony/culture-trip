@@ -48,6 +48,10 @@ export default function Home() {
   })
 
   const pickNewDestination = () => {
+    if (places.length === 0) {
+      return
+    }
+    
     const max = places.length - 1 || 0
     const randomIndex = Math.floor(Math.random() * max)
     const newDestination = places[randomIndex]

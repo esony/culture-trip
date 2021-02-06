@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;500;600&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Raleway', sans-serif;
+  color: #333;
+}
+
+.leaflet-container {
+  font-family: 'Raleway', sans-serif !important;
 }
 
 a {
@@ -13,4 +19,24 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+button {
+  border-radius: 5px;
+  border: 1px solid #d9d9d9;
+  background-color: white;
+  padding: 10px 15px;
+  font-weight: 500;
+  font-family: 'Raleway';
+  color: #333;
+  cursor: pointer;
+}
+
+button:focus {
+  background: #fff;
+  outline: none;
+  border: solid 1px #007ac97a;
+  box-shadow: none;
+  box-shadow: 0px 0px 2px 1px #0062a1b0;
+  outline-offset: 0px;
 }

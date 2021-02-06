@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery, gql } from '@apollo/client'
+import css from './index.module.css'
 
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false,
@@ -27,23 +28,38 @@ const ITINERARIES = gql`
 `
 
 export default function Home() {
-  const [destination, setDestination] = useState({
-    lat: 60.175294,
-    lon: 24.684855,
+  const [places, setPlaces] = useState([])
+
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      const response = await fetch('/api/places')
+      const data = await response.json()
+      setPlaces(data)
+    }
+
+    fetchPlaces()
+  }, [])
+
+  const { data, refetch: fetchRoute } = useQuery(ITINERARIES, {
+    variables: {},
+    fetchPolicy: 'standby',
   })
 
-  const { loading, error, data } = useQuery(ITINERARIES, {
-    variables: { destination },
-  })
+  const pickNewDestination = () => {
+    const max = places.length - 1 || 0
+    const randomIndex = Math.floor(Math.random() * max)
+    const newDestination = places[randomIndex]
 
-  if (error) {
-    alert(error)
+    fetchRoute({
+      destination: {
+        lat: newDestination?.location?.lat,
+        lon: newDestination?.location?.lon,
+      },
+    })
   }
 
   const polylines: Array<string> =
-    loading || error
-      ? []
-      : data.plan.itineraries[0].legs.map((x: any) => x.legGeometry.points)
+    data?.plan.itineraries[0]?.legs.map((x: any) => x.legGeometry.points) || []
 
   return (
     <>
@@ -53,6 +69,9 @@ export default function Home() {
       </Head>
 
       <main>
+        <button onClick={pickNewDestination} className={css.button}>
+          Pick new destination
+        </button>
         <DynamicMap polylines={polylines} />
       </main>
     </>

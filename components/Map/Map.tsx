@@ -1,14 +1,19 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
+import polylineUtil from '@mapbox/polyline'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import css from './Map.module.css'
 
-const Map = () => {
+type Props = {
+  polylines: string[]
+}
+
+const Map = ({ polylines }: Props) => {
   L.Icon.Default.imagePath = '/'
 
   return (
     <MapContainer
-      center={[60.192059, 24.945831]}
+      center={[60.16699, 24.93988]}
       zoom={13}
       scrollWheelZoom={true}
       className={css.mapContainer}
@@ -24,6 +29,9 @@ const Map = () => {
           <br /> There must be something here!
         </Popup>
       </Marker>
+      {polylines.map((x: any, i: number) => (
+        <Polyline key={i} positions={polylineUtil.decode(x)}></Polyline>
+      ))}
     </MapContainer>
   )
 }

@@ -17,6 +17,7 @@ const ITINERARIES = gql`
       numItineraries: 1
     ) {
       itineraries {
+        duration
         legs {
           startTime
           endTime
@@ -92,7 +93,7 @@ export default function Home() {
         <button onClick={pickNewDestination} className={css.button}>
           Pick new destination
         </button>
-        <DynamicMap route={data?.plan.itineraries[0].legs} destination={selectedPlace} />
+        <DynamicMap itinerary={data?.plan.itineraries[0]} destination={selectedPlace} />
       </main>
     </>
   )

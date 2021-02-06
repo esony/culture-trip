@@ -4,14 +4,14 @@ import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import css from './Map.module.css'
 import Location from '../../types/Location'
-import { getColor } from '../../utils/utils'
+import { getColor, secondsToDisplayTime } from '../../utils/utils'
 
 type Props = {
-  route: any[]
+  itinerary: any
   destination?: Location
 }
 
-const Map = ({ route, destination }: Props) => {
+const Map = ({ itinerary, destination }: Props) => {
   L.Icon.Default.imagePath = '/'
 
   const today = new Date().getDay()
@@ -45,13 +45,16 @@ const Map = ({ route, destination }: Props) => {
               <div className={css.openingHours}>
                 Open today: {destination.opening_hours.hours[today].opens} -{' '}
                 {destination.opening_hours.hours[today].closes}
+                <br />
+                Travel time: &nbsp;
+                {itinerary && secondsToDisplayTime(itinerary.duration)}
               </div>
             </div>
           </Popup>
         </Marker>
       )}
-      {route &&
-        route.map((leg: any, i: number) => {
+      {itinerary &&
+        itinerary.legs.map((leg: any, i: number) => {
           const color = getColor(leg.mode)
 
           return (

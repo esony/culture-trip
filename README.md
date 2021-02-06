@@ -6,6 +6,7 @@ This is a demo project that utilizes data from [HSL](https://www.hsl.fi/en/hsl/o
 
 ### Technologies
 *   [Next.js](https://nextjs.org/)
+*   [Typescript](https://www.typescriptlang.org/)
 *   [Docker](https://www.docker.com/)
 
 ### Google Cloud services

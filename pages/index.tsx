@@ -21,8 +21,6 @@ const ITINERARIES = gql`
       itineraries {
         duration
         legs {
-          startTime
-          endTime
           mode
           from {
             name
@@ -34,9 +32,6 @@ const ITINERARIES = gql`
             shortName
           }
           duration
-          realTime
-          distance
-          transitLeg
           legGeometry {
             length
             points
@@ -99,19 +94,23 @@ export default function Home() {
         <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={PAGE_DESCRIPTION} />
       </Head>
-      <Modal isOpen={modalOpen}>
-        <h1 className={css.modalHeader}>
-          Tired of fighting over where to go? Look no further!
-        </h1>
-        <p>
-          Use modern technology to find a place of culture to visit. You will
-          even be provided with instructions on how to get there.
-        </p>
-        <button className={css.modalButton} onClick={() => setModalOpen(false)}>
-          Start
-        </button>
-      </Modal>
       <main>
+        <Modal isOpen={modalOpen}>
+          <h1 className={css.modalHeader}>
+            Tired of fighting over where to go? Look no further!
+          </h1>
+          <p>
+            Use modern technology to find a place of culture to visit. You will
+            even be provided with instructions on how to get there. Click on the
+            marker for details.
+          </p>
+          <button
+            className={css.modalButton}
+            onClick={() => setModalOpen(false)}
+          >
+            Start
+          </button>
+        </Modal>
         <button onClick={pickNewDestination} className={css.button}>
           Pick a new destination
         </button>

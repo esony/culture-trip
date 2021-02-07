@@ -109,8 +109,7 @@ export default function Home() {
           </h1>
           <p>
             Use modern technology to find a place of culture to visit. You will
-            even be provided with instructions on how to get there. Click on the
-            marker for details.
+            even be provided with instructions on how to get there.
           </p>
           <button className={css.modalButton} onClick={handleCloseModal}>
             Start

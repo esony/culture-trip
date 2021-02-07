@@ -5,7 +5,9 @@ import { HSL_GRAPHQL_URL } from '../utils/constants'
 
 const client = new ApolloClient({
   uri: HSL_GRAPHQL_URL,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    resultCaching: false,
+  }),
 })
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

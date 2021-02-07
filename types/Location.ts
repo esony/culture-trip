@@ -39,16 +39,8 @@ type Location = {
   opening_hours: {
     hours: {
       weekday_id: number
-      opens: {
-        hours: number
-        minutes: number
-        seconds: number
-      }
-      closes: {
-        hours: number
-        minutes: number
-        seconds: number
-      }
+      opens: string
+      closes: string
       open24h: true
     }[]
     openinghours_exception: string

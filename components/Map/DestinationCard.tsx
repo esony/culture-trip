@@ -37,13 +37,28 @@ const DestinationCard = ({ destination, itinerary }: Props) => {
             Travel time: &nbsp;
             {itinerary && secondsToDisplayTime(itinerary.duration)}
           </div>
+
           <div className={css.route}>
             <button onClick={() => setRouteOpen(!routeOpen)}>
               {routeOpen ? 'Hide route' : 'Show route'}
             </button>
-            {routeOpen && (
+            {routeOpen && itinerary && (
               <div className={css.routeDetails}>
-                1. Go here <br /> 2. Go away
+                {itinerary.legs.map((x: any) => {
+                  const duration = secondsToDisplayTime(x.duration)
+
+                  return (
+                    <div className={css.routeLegRow}>
+                      <div>
+                        {x.mode} ({duration})
+                      </div>
+                      <div>
+                        {x.route?.shortName} &nbsp;
+                        {x.from?.name} - {x.to?.name}
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             )}
           </div>

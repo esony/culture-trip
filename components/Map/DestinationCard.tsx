@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, createRef } from 'react'
 import { Marker, Popup } from 'react-leaflet'
 import css from './DestinationCard.module.css'
 import Location from '../../types/Location'
 import { secondsToDisplayTime } from '../../utils/utils'
+import { Marker as MarkerType } from 'leaflet'
 
 type Props = {
   destination: Location
@@ -11,6 +12,7 @@ type Props = {
 
 const DestinationCard = ({ destination, itinerary }: Props) => {
   const { location, name, description, opening_hours } = destination
+  const blinkerRef = createRef<MarkerType<any>>()
   const today = new Date().getDay()
 
   const [routeOpen, setRouteOpen] = useState(false)
@@ -19,11 +21,16 @@ const DestinationCard = ({ destination, itinerary }: Props) => {
     setRouteOpen(false)
   }, [destination])
 
+  useEffect(() => {
+    blinkerRef.current?.openPopup()
+  }, [blinkerRef])
+
   return (
     <Marker
       position={[location.lat, location.lon]}
       title={name.en}
       alt={name.en}
+      ref={blinkerRef}
     >
       <Popup className={css.popup}>
         <img src={description.images[0]?.url} className={css.thumbnail} />

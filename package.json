@@ -10,7 +10,9 @@
   "dependencies": {
     "@apollo/client": "^3.3.8",
     "@mapbox/polyline": "^1.1.1",
+    "@types/classnames": "^2.2.11",
     "@types/mapbox__polyline": "^1.0.2",
+    "classnames": "^2.2.6",
     "graphql": "^15.5.0",
     "leaflet": "^1.7.1",
     "next": "10.0.6",

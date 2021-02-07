@@ -5,6 +5,7 @@ import { useQuery, gql } from '@apollo/client'
 import css from './index.module.css'
 import Location from '../types/Location'
 import { PAGE_TITLE, PAGE_DESCRIPTION } from '../utils/constants'
+import Modal from '../components/Modal/Modal'
 
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false,
@@ -20,8 +21,6 @@ const ITINERARIES = gql`
       itineraries {
         duration
         legs {
-          startTime
-          endTime
           mode
           from {
             name
@@ -33,9 +32,6 @@ const ITINERARIES = gql`
             shortName
           }
           duration
-          realTime
-          distance
-          transitLeg
           legGeometry {
             length
             points
@@ -49,6 +45,7 @@ const ITINERARIES = gql`
 export default function Home() {
   const [places, setPlaces] = useState<Array<Location>>([])
   const [selectedPlace, setSelectedPlace] = useState<Location>()
+  const [modalOpen, setModalOpen] = useState(true)
 
   useEffect(() => {
     const fetchPlaces = async () => {
@@ -97,8 +94,23 @@ export default function Home() {
         <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={PAGE_DESCRIPTION} />
       </Head>
-
       <main>
+        <Modal isOpen={modalOpen}>
+          <h1 className={css.modalHeader}>
+            Tired of fighting over where to go? Look no further!
+          </h1>
+          <p>
+            Use modern technology to find a place of culture to visit. You will
+            even be provided with instructions on how to get there. Click on the
+            marker for details.
+          </p>
+          <button
+            className={css.modalButton}
+            onClick={() => setModalOpen(false)}
+          >
+            Start
+          </button>
+        </Modal>
         <button onClick={pickNewDestination} className={css.button}>
           Pick a new destination
         </button>

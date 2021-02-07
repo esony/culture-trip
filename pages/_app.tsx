@@ -1,9 +1,10 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
+import { HSL_GRAPHQL_URL } from '../utils/constants'
 
 const client = new ApolloClient({
-  uri: 'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql',
+  uri: HSL_GRAPHQL_URL,
   cache: new InMemoryCache(),
 })
 

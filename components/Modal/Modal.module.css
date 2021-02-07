@@ -19,9 +19,5 @@
   padding: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-}
-
-.component {
-  display: flex;
   flex-direction: column;
 }

@@ -9,9 +9,7 @@ type Props = {
 const Modal = ({ isOpen, children }: Props) =>
   !isOpen ? null : (
     <div className={css.backdrop}>
-      <div className={css.container}>
-        <div className={css.component}>{children}</div>
-      </div>
+      <section className={css.container}>{children}</section>
     </div>
   )
 

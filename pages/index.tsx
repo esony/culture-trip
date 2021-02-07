@@ -110,11 +110,11 @@ export default function Home() {
       <main>
         <Modal isOpen={modalOpen}>
           <h1 className={css.modalHeader}>
-            Tired of fighting over where to go? Look no further!
+            Need a drink? I'll tell you where to go!
+            <br />
           </h1>
           <p>
-            Use modern technology to find a place of culture to visit. You will
-            even be provided with instructions on how to get there.
+            You will even be provided with instructions on how to get there.
           </p>
           <button className={css.modalButton} onClick={handleCloseModal}>
             Start
@@ -125,7 +125,7 @@ export default function Home() {
             onClick={pickNewDestination}
             className={cn(css.button, { [css.highlight]: !hasClicked })}
           >
-            Pick a new destination
+            Pick your next destination
           </button>
         </div>
         <DynamicMap

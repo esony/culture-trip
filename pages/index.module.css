@@ -14,3 +14,12 @@
 .modalButton {
   margin-top: 20px;
 }
+
+.copyright {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  font-size: 12px;
+  color: dimgray;
+}

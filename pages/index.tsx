@@ -118,6 +118,10 @@ export default function Home() {
           itinerary={data?.plan.itineraries[0]}
           destination={selectedPlace}
         />
+        <div className={css.copyright}>
+          <div>Travel itinerary © HSL 2021</div>
+          <div>Marketing information © MyHelsinki OpenAPI</div>
+        </div>
       </main>
     </>
   )

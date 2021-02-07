@@ -31,7 +31,7 @@ const DestinationCard = ({ destination, itinerary }: Props) => {
           <h1 className={css.cardHeader}>{name.en}</h1>
           <p>{description.body}</p>
           <div className={css.openingHours}>
-            Open today: {opening_hours.hours[today].opens} -{' '}
+            Open today: {opening_hours.hours[today].opens} -&nbsp;
             {opening_hours.hours[today].closes}
             <br />
             Travel time: &nbsp;
@@ -44,11 +44,11 @@ const DestinationCard = ({ destination, itinerary }: Props) => {
             </button>
             {routeOpen && itinerary && (
               <div className={css.routeDetails}>
-                {itinerary.legs.map((x: any) => {
+                {itinerary.legs.map((x: any, i: number) => {
                   const duration = secondsToDisplayTime(x.duration)
 
                   return (
-                    <div className={css.routeLegRow}>
+                    <div className={css.routeLegRow} key={i}>
                       <div>
                         {x.mode} ({duration})
                       </div>

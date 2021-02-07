@@ -6,6 +6,7 @@ import css from './index.module.css'
 import Location from '../types/Location'
 import { PAGE_TITLE, PAGE_DESCRIPTION } from '../utils/constants'
 import Modal from '../components/Modal/Modal'
+import cn from 'classnames'
 
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false,
@@ -46,6 +47,7 @@ export default function Home() {
   const [places, setPlaces] = useState<Array<Location>>([])
   const [selectedPlace, setSelectedPlace] = useState<Location>()
   const [modalOpen, setModalOpen] = useState(true)
+  const [hasClicked, setHasClicked] = useState(true)
 
   useEffect(() => {
     const fetchPlaces = async () => {
@@ -63,6 +65,7 @@ export default function Home() {
   })
 
   const pickNewDestination = () => {
+    setHasClicked(true)
     if (places.length === 0) {
       return
     }
@@ -78,6 +81,11 @@ export default function Home() {
         lon: newDestination.location.lon,
       },
     })
+  }
+
+  const handleCloseModal = () => {
+    setHasClicked(false)
+    setModalOpen(false)
   }
 
   return (
@@ -104,14 +112,14 @@ export default function Home() {
             even be provided with instructions on how to get there. Click on the
             marker for details.
           </p>
-          <button
-            className={css.modalButton}
-            onClick={() => setModalOpen(false)}
-          >
+          <button className={css.modalButton} onClick={handleCloseModal}>
             Start
           </button>
         </Modal>
-        <button onClick={pickNewDestination} className={css.button}>
+        <button
+          onClick={pickNewDestination}
+          className={cn(css.button, { [css.highlight]: !hasClicked })}
+        >
           Pick a new destination
         </button>
         <DynamicMap

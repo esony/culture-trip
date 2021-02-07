@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useQuery, gql } from '@apollo/client'
 import css from './index.module.css'
 import Location from '../types/Location'
+import { PAGE_TITLE, PAGE_DESCRIPTION } from '../utils/constants'
 
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false,
@@ -69,7 +70,7 @@ export default function Home() {
       return
     }
 
-    const max = places.length - 1 || 0
+    const max = places.length - 1
     const randomIndex = Math.floor(Math.random() * max)
     const newDestination = places[randomIndex]
 
@@ -87,13 +88,24 @@ export default function Home() {
       <Head>
         <title>Culture Trip</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content={PAGE_TITLE} key="og-title" />
+        <meta
+          property="og:description"
+          content={PAGE_DESCRIPTION}
+          key="og-description"
+        />
+        <meta name="twitter:title" content={PAGE_TITLE} />
+        <meta name="twitter:description" content={PAGE_DESCRIPTION} />
       </Head>
 
       <main>
         <button onClick={pickNewDestination} className={css.button}>
-          Pick new destination
+          Pick a new destination
         </button>
-        <DynamicMap itinerary={data?.plan.itineraries[0]} destination={selectedPlace} />
+        <DynamicMap
+          itinerary={data?.plan.itineraries[0]}
+          destination={selectedPlace}
+        />
       </main>
     </>
   )

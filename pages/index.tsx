@@ -13,12 +13,8 @@ const DynamicMap = dynamic(() => import('../components/Map/Map'), {
 })
 
 const ITINERARIES = gql`
-  query Itinerary($destination: InputCoordinates) {
-    plan(
-      from: { lat: 60.16699, lon: 24.93988 }
-      to: $destination
-      numItineraries: 1
-    ) {
+  query Itinerary($origin: InputCoordinates, $destination: InputCoordinates) {
+    plan(from: $origin, to: $destination, numItineraries: 1) {
       itineraries {
         duration
         legs {
@@ -48,6 +44,12 @@ export default function Home() {
   const [selectedPlace, setSelectedPlace] = useState<Location>()
   const [modalOpen, setModalOpen] = useState(true)
   const [hasClicked, setHasClicked] = useState(true)
+  const [origin, setOrigin] = useState({ lat: 60.16699, lon: 24.93988 })
+
+  const { data, refetch: fetchRoute } = useQuery(ITINERARIES, {
+    variables: {},
+    fetchPolicy: 'standby',
+  })
 
   useEffect(() => {
     const fetchPlaces = async () => {
@@ -59,10 +61,19 @@ export default function Home() {
     fetchPlaces()
   }, [])
 
-  const { data, refetch: fetchRoute } = useQuery(ITINERARIES, {
-    variables: {},
-    fetchPolicy: 'standby',
-  })
+  useEffect(() => {
+    if (!origin || !selectedPlace) {
+      return
+    }
+
+    fetchRoute({
+      origin,
+      destination: {
+        lat: selectedPlace?.location.lat,
+        lon: selectedPlace?.location.lon,
+      },
+    })
+  }, [origin, selectedPlace])
 
   const pickNewDestination = () => {
     setHasClicked(true)
@@ -75,12 +86,6 @@ export default function Home() {
     const newDestination = places[randomIndex]
 
     setSelectedPlace(newDestination)
-    fetchRoute({
-      destination: {
-        lat: newDestination.location.lat,
-        lon: newDestination.location.lon,
-      },
-    })
   }
 
   const handleCloseModal = () => {
@@ -115,15 +120,19 @@ export default function Home() {
             Start
           </button>
         </Modal>
-        <button
-          onClick={pickNewDestination}
-          className={cn(css.button, { [css.highlight]: !hasClicked })}
-        >
-          Pick a new destination
-        </button>
+        <div className={css.control}>
+          <button
+            onClick={pickNewDestination}
+            className={cn(css.button, { [css.highlight]: !hasClicked })}
+          >
+            Pick a new destination
+          </button>
+        </div>
         <DynamicMap
           itinerary={data?.plan.itineraries[0]}
           destination={selectedPlace}
+          origin={origin}
+          setOrigin={setOrigin}
         />
         <div className={css.copyright}>
           <div>Travel itinerary © HSL 2021</div>

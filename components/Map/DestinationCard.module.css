@@ -30,3 +30,12 @@
 .route {
   margin-top: 10px;
 }
+
+.routeDetails {
+  margin-top: 10px;
+}
+
+.routeLegRow {
+  display: flex;
+  justify-content: space-between;
+}

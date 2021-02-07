@@ -1,10 +1,10 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
-import { HSL_GRAPHQL_URL } from '../utils/constants'
+import { GRAPHQL_FIN } from '../utils/constants'
 
 const client = new ApolloClient({
-  uri: HSL_GRAPHQL_URL,
+  uri: GRAPHQL_FIN,
   cache: new InMemoryCache({
     resultCaching: false,
   }),

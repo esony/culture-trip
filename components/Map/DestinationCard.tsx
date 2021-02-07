@@ -31,7 +31,7 @@ const DestinationCard = ({ destination, itinerary }: Props) => {
           <h1 className={css.cardHeader}>{name.en}</h1>
           <p>{description.body}</p>
           <div className={css.openingHours}>
-            Open today: {opening_hours.hours[today].opens} -{' '}
+            Open today: {opening_hours.hours[today].opens} -&nbsp;
             {opening_hours.hours[today].closes}
             <br />
             Travel time: &nbsp;

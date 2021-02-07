@@ -44,11 +44,11 @@ const DestinationCard = ({ destination, itinerary }: Props) => {
             </button>
             {routeOpen && itinerary && (
               <div className={css.routeDetails}>
-                {itinerary.legs.map((x: any) => {
+                {itinerary.legs.map((x: any, i: number) => {
                   const duration = secondsToDisplayTime(x.duration)
 
                   return (
-                    <div className={css.routeLegRow}>
+                    <div className={css.routeLegRow} key={i}>
                       <div>
                         {x.mode} ({duration})
                       </div>

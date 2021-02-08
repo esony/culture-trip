@@ -6,7 +6,7 @@ import css from './Map.module.css'
 import Location from '../../types/Location'
 import { getColor } from '../../utils/utils'
 import DestinationCard from './DestinationCard'
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Marker as MarkerType } from 'leaflet'
 import { LatLon } from '../../types/LatLon'
 import CircleIcon from './CircleIcon'
@@ -27,6 +27,7 @@ const Map = ({
   allPlaces,
 }: Props) => {
   L.Icon.Default.imagePath = '/'
+  const [routeOpen, setRouteOpen] = useState(false)
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -73,13 +74,15 @@ const Map = ({
         attribution='Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
         url="https://cdn.digitransit.fi/map/v1/{id}/{z}/{x}/{y}.png"
       />
-      <Marker
-        position={[origin.lat, origin.lon]}
-        title="Origin"
-        draggable={true}
-        eventHandlers={handleDragOrigin}
-        ref={originRef}
-      ></Marker>
+      {routeOpen && (
+        <Marker
+          position={[origin.lat, origin.lon]}
+          title="Origin"
+          draggable={true}
+          eventHandlers={handleDragOrigin}
+          ref={originRef}
+        ></Marker>
+      )}
       {allPlaces.map((x) => (
         <Marker
           position={[x.location.lat, x.location.lon]}
@@ -88,9 +91,15 @@ const Map = ({
         ></Marker>
       ))}
       {destination && (
-        <DestinationCard destination={destination} itinerary={itinerary} />
+        <DestinationCard
+          destination={destination}
+          itinerary={itinerary}
+          routeOpen={routeOpen}
+          setRouteOpen={setRouteOpen}
+        />
       )}
       {itinerary &&
+        routeOpen &&
         itinerary.legs.map((leg: any, i: number) => {
           const color = getColor(leg.mode)
 

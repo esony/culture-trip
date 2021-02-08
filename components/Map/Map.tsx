@@ -8,15 +8,24 @@ import { getColor } from '../../utils/utils'
 import DestinationCard from './DestinationCard'
 import { useEffect, useMemo, useRef } from 'react'
 import { Marker as MarkerType } from 'leaflet'
+import { LatLon } from '../../types/LatLon'
+import CircleIcon from './CircleIcon'
 
 type Props = {
   itinerary: any
   destination?: Location
   origin: { lat: number; lon: number }
-  setOrigin: any
+  setOrigin: (origin: LatLon) => void
+  allPlaces: Location[]
 }
 
-const Map = ({ itinerary, destination, origin, setOrigin }: Props) => {
+const Map = ({
+  itinerary,
+  destination,
+  origin,
+  setOrigin,
+  allPlaces,
+}: Props) => {
   L.Icon.Default.imagePath = '/'
 
   useEffect(() => {
@@ -71,6 +80,13 @@ const Map = ({ itinerary, destination, origin, setOrigin }: Props) => {
         eventHandlers={handleDragOrigin}
         ref={originRef}
       ></Marker>
+      {allPlaces.map((x) => (
+        <Marker
+          position={[x.location.lat, x.location.lon]}
+          title={x.name.en}
+          icon={CircleIcon}
+        ></Marker>
+      ))}
       {destination && (
         <DestinationCard destination={destination} itinerary={itinerary} />
       )}

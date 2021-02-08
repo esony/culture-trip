@@ -133,6 +133,7 @@ export default function Home() {
           destination={selectedPlace}
           origin={origin}
           setOrigin={setOrigin}
+          allPlaces={places}
         />
         <div className={css.copyright}>
           <div>Travel itinerary © HSL 2021</div>

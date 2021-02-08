@@ -23,7 +23,7 @@ Marketing information © MyHelsinki OpenAPI
 
 ## Live demo
 
-A live demo is hosted on [Google Cloud](https://culture-trip-ji4iccy6cq-lz.a.run.app/).
+A live demo hosted on Google Cloud can be accessed at [trip.esony.net](https://trip.esony.net/).
 
 ## Local development
 

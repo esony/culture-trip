@@ -43,7 +43,7 @@ const Map = ({
           console.log(error)
         },
         {
-          timeout: 5000,
+          timeout: 30000,
         }
       )
     }

@@ -7,6 +7,7 @@ import Location from '../types/Location'
 import { PAGE_TITLE, PAGE_DESCRIPTION } from '../utils/constants'
 import Modal from '../components/Modal/Modal'
 import cn from 'classnames'
+import Plan from '../types/Plan'
 
 const DynamicMap = dynamic(() => import('../components/Map/Map'), {
   ssr: false,
@@ -46,16 +47,21 @@ export default function Home() {
   const [hasClicked, setHasClicked] = useState(true)
   const [origin, setOrigin] = useState({ lat: 60.16699, lon: 24.93988 })
 
-  const { data, refetch: fetchRoute } = useQuery(ITINERARIES, {
+  const { data, refetch: fetchRoute } = useQuery<Plan>(ITINERARIES, {
     variables: {},
     fetchPolicy: 'standby',
   })
 
   useEffect(() => {
     const fetchPlaces = async () => {
-      const response = await fetch('/api/places')
-      const data = await response.json()
-      setPlaces(data)
+      try {
+        const response = await fetch('/api/places')
+        const data = await response.json()
+        setPlaces(data)
+      } catch (error) {
+        alert('Error fetching places, please try again later')
+        console.error(error)
+      }
     }
 
     fetchPlaces()

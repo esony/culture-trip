@@ -10,9 +10,10 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Marker as MarkerType } from 'leaflet'
 import { LatLon } from '../../types/LatLon'
 import CircleIcon from './CircleIcon'
+import Itinerary from '../../types/Itinerary'
 
 type Props = {
-  itinerary: any
+  itinerary?: Itinerary
   destination?: Location
   origin: { lat: number; lon: number }
   setOrigin: (origin: LatLon) => void
@@ -83,8 +84,9 @@ const Map = ({
           ref={originRef}
         ></Marker>
       )}
-      {allPlaces.map((x) => (
+      {allPlaces.map((x, i) => (
         <Marker
+          key={i}
           position={[x.location.lat, x.location.lon]}
           title={x.name.en}
           icon={CircleIcon}
@@ -100,7 +102,7 @@ const Map = ({
       )}
       {itinerary &&
         routeOpen &&
-        itinerary.legs.map((leg: any, i: number) => {
+        itinerary.legs.map((leg, i) => {
           const color = getColor(leg.mode)
 
           return (

@@ -4,10 +4,11 @@ import css from './DestinationCard.module.css'
 import Location from '../../types/Location'
 import { secondsToDisplayTime } from '../../utils/utils'
 import { Marker as MarkerType } from 'leaflet'
+import Itinerary from '../../types/Itinerary'
 
 type Props = {
   destination: Location
-  itinerary: any
+  itinerary?: Itinerary
   routeOpen: boolean
   setRouteOpen: (value: boolean) => void
 }
@@ -57,7 +58,7 @@ const DestinationCard = ({
             </button>
             {routeOpen && itinerary && (
               <div className={css.routeDetails}>
-                {itinerary.legs.map((x: any, i: number) => {
+                {itinerary.legs.map((x, i) => {
                   const duration = secondsToDisplayTime(x.duration)
 
                   return (

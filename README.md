@@ -21,10 +21,6 @@ Marketing information © MyHelsinki OpenAPI
 - [Container Registry](https://cloud.google.com/container-registry)
 - [Cloud Run](https://cloud.google.com/run)
 
-## Live demo
-
-A live demo hosted on Google Cloud can be accessed at [trip.esony.net](https://trip.esony.net/).
-
 ## Local development
 
 ### Prerequisites
